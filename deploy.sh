@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x #echo on
+
 
 echo $PROFILE
 # Download template
