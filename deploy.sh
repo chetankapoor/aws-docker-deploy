@@ -35,18 +35,18 @@ sed -i.bak "s/<CONTAINER_PORT>/$CONTAINER_PORT/" Dockerrun.aws.json
 # Zip up the Dockerrun file (feel free to zip up an .ebextensions directory with it)
 zip -r $ZIP Dockerrun.aws.json
 
-aws s3 cp $ZIP s3://$EB_BUCKET/$ZIP
+aws s3 cp $ZIP s3://$EB_BUCKET/$ZIP --profile $PROFILE
 
 # Create a new application version with the zipped up Dockerrun file
 aws elasticbeanstalk create-application-version --application-name "$EB_APP_NAME" \
-    --version-label $VERSION --description "$DESCRIPTION" --source-bundle S3Bucket=$EB_BUCKET,S3Key=$ZIP
+    --version-label $VERSION --description "$DESCRIPTION" --source-bundle S3Bucket=$EB_BUCKET,S3Key=$ZIP  --profile $PROFILE
 
 # Update the environment to use the new application version
 if [ -z "$EB_ENV_NAME" ]; then
     echo "EB_ENV_NAME is not set, skipping deployment step"
 else
     aws elasticbeanstalk update-environment --environment-name $EB_ENV_NAME \
-        --version-label $VERSION
+        --version-label $VERSION --profile $PROFILE
 fi
 
 # Clean up
