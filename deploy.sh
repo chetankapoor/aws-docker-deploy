@@ -24,7 +24,7 @@ docker-compose -f docker-compose.yaml build
 echo Tagging Image
 docker tag $IMAGE_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_NAME
 echo Docker push
-docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$NAME:$VERSION
+docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_NAME
 
 # Copy template Dockerrun.aws.json and replace template vars
 cp Dockerrun.aws.json.template Dockerrun.aws.json
