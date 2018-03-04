@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "essential": true,
-            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>,
+            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>",
             "name": "lumen-1",
             "memory": 200,
             "cpu": 1,
@@ -23,7 +23,7 @@
                 }
             ],
             "essential": true,
-            "image": <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>",
+            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>",
             "memory": 200,
             "cpu": 1,
             "links": [
