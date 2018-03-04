@@ -21,6 +21,7 @@
         },
         {
             "essential": true,
+            "image": "chetankapoor/lumen:lumen-proxy",
             "links": [
                 "lumen-1"
             ],
@@ -31,7 +32,7 @@
                     "hostPort": 80
                 },
                 {
-                    "containerPort": 8001,
+                    "containerPort": 8080,
                     "hostPort": 8080
                 }
             ]
