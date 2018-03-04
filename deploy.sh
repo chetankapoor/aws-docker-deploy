@@ -19,8 +19,11 @@ eval $(aws ecr get-login --region $AWS_REGION | sed "s/-e none //")
 
 # Build and push the image
 export IMAGE_NAME=$NAME:$VERSION
+echo docker-compose
 docker-compose -f docker-compose.yaml build
+echo Tagging Image
 docker tag $NAME:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$NAME:$VERSION
+echo Docker push
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$NAME:$VERSION
 
 # Copy template Dockerrun.aws.json and replace template vars
