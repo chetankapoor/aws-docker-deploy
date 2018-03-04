@@ -2,7 +2,7 @@
 
 echo $PROFILE
 # Download template
-#curl -LSso Dockerrun.aws.json.template https://raw.githubusercontent.com/imperfectproduce/aws-docker-deploy/c13ffa2eda068d5d4eee93ce498d1340f72a529c/Dockerrun.aws.json.template
+curl -LSso Dockerrun.aws.json.template https://raw.githubusercontent.com/chetankapoor/aws-docker-deploy/master/Dockerrun.aws.json.template
 
 # Set vars that typically do not vary by app
 BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
@@ -18,7 +18,8 @@ aws configure set default.region $AWS_REGION
 eval $(aws ecr get-login --region $AWS_REGION | sed "s/-e none //")
 
 # Build and push the image
-docker build -t $NAME:$VERSION .
+export IMAGE_NAME=$NAME:$VERSION
+docker-compose -f docker-compose.yaml build
 docker tag $NAME:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$NAME:$VERSION
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$NAME:$VERSION
 
