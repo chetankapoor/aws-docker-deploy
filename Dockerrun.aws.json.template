@@ -1,13 +1,66 @@
 {
-  "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>",
-    "Update": "true"
-  },
-  "Ports": [
-    {
-      "ContainerPort": "<CONTAINER_PORT>"
-    }
-  ],
-  "Volumes":[]
+    "AWSEBDockerrunVersion": 2,   
+    "containerDefinitions": [
+        {
+            "essential": true,
+            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>,
+            "name": "lumen-1",
+            "memory": 200,
+            "cpu": 1,
+            "portMappings": [
+                {
+                    "containerPort": 8000,
+                    "hostPort": 8000
+                }
+            ],
+            "workingDirectory": "/app"
+        },
+        {
+            "environment": [
+                {
+                    "name": "SERVER_HOST",
+                    "value": "http://lumen-1:8000/"
+                }
+            ],
+            "essential": true,
+            "image": ""<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>"",
+            "memory": 200,
+            "cpu": 1,
+            "links": [
+                "lumen-1"
+            ],
+            "name": "lumen-2",
+            "portMappings": [
+                {
+                    "containerPort": 8001,
+                    "hostPort": 8001
+                }
+            ],
+            "workingDirectory": "/app"
+        },
+        {
+            "name": "lumen-proxy",
+            "essential": true,
+            "image": "chetankapoor/lumen:lumen-proxy",
+            "name": "lumen-proxy",
+            "memory": 200,
+            "cpu": 1,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80
+                },
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080
+                }
+            ],
+            "links": [
+        "lumen-1:lumen-1",
+        "lumen-2:lumen-2"
+      ]
+        }
+    ],
+    "family": "",
+    "volumes": []
 }
