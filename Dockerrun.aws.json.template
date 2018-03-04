@@ -3,6 +3,7 @@
     "containerDefinitions": [
         {
             "essential": true,
+            "memory": 128,
             "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>",
             "mountPoints": [
                 {
@@ -21,6 +22,7 @@
         },
         {
             "essential": true,
+            "memory": 128,
             "image": "chetankapoor/lumen:lumen-proxy",
             "links": [
                 "lumen-1"
