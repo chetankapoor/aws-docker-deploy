@@ -1,8 +1,15 @@
 {
+    "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
             "essential": true,
             "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<NAME>:<TAG>",
+            "mountPoints": [
+                {
+                    "containerPath": "/app",
+                    "sourceVolume": "_Lumen-1"
+                }
+            ],
             "name": "lumen-1",
             "portMappings": [
                 {
@@ -31,5 +38,12 @@
         }
     ],
     "family": "",
-    "volumes": []
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "./lumen-1"
+            },
+            "name": "_Lumen-1"
+        }
+    ]
 }
