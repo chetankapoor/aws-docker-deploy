@@ -23,7 +23,7 @@
         {
             "essential": true,
             "memory": 128,
-            "image": "chetankapoor/lumen:lumen-proxy",
+            "image": "441221386596.dkr.ecr.us-east-2.amazonaws.com/lumen:lumen-proxy",
             "links": [
                 "lumen-1"
             ],
