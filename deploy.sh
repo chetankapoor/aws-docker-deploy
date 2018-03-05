@@ -15,7 +15,7 @@ ZIP=$VERSION.zip
 aws configure set default.region $AWS_REGION
 
 # Authenticate against our Docker registry
-eval $(aws ecr get-login --region $AWS_REGION | sed "s/-e none //")
+eval $(aws ecr get-login --region $AWS_REGION --profile $PROFILE | sed "s/-e none //")
 
 # Build and push the image
 export IMAGE_NAME=$NAME:$VERSION
@@ -35,6 +35,8 @@ sed -i.bak "s/<AWS_REGION>/$AWS_REGION/" Dockerrun.aws.json
 sed -i.bak "s/<NAME>/$NAME/" Dockerrun.aws.json
 sed -i.bak "s/<TAG>/$VERSION/" Dockerrun.aws.json
 sed -i.bak "s/<CONTAINER_PORT>/$CONTAINER_PORT/" Dockerrun.aws.json
+sed -i.bak "s/<BUCKET>/$BUCKET/" Dockerrun.aws.json
+sed -i.bak "s/<KEY>/$KEY/" Dockerrun.aws.json
 
 # Zip up the Dockerrun file (feel free to zip up an .ebextensions directory with it)
 zip -r $ZIP Dockerrun.aws.json
